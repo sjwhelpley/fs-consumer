@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Saved
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="this.size == 0">
+    <p>
+      Looks like you have no saved homes.
+    </p>
+    <ion-button expand="block" routerLink="/tabs/tab1" routerDirection="backward">
+      Find homes
+    </ion-button>
+  </div>
+  <div *ngIf="this.size != 0">
+    <ion-list>
+        <ion-item *ngFor="let item of items">
+          <div padding>
+            {{item.name}}<br>
+            {{item.location}}<br>
+            {{item.price}}
+          </div>
+        </ion-item>
+      </ion-list>
+  </div>
+</ion-content>
