@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { UsersService } from '../services/users.service';
-import { User } from '../models/user';
+//import { UserService } from '../../services/users.service';
+//import { User } from '../../models/user';
 
 @Component({
   selector: 'app-tab5',
@@ -9,10 +9,10 @@ import { User } from '../models/user';
   styleUrls: ['./tab5.page.scss'],
 })
 export class Tab5Page {
-  public profile: User;
+  //public profile: User;
 
   constructor (
-    private usersService: UsersService
+    //private usersService: UsersService
   ) { 
     //this.profile = this.usersService.getProfile();
   }

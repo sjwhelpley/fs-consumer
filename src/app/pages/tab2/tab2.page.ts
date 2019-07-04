@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ListingsService } from '../services/listings.service';
+import { ListingsService } from '../../services/listings.service';
 
 @Component({
   selector: 'app-tab2',
