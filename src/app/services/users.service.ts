@@ -1,38 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { Users } from '../models/users'
+import { Users } from '../models/user'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  users: Array<Users>;
   loggedInUser: Users;
 
-  user1: Users = new Users("john@mail.com", "123", "John", "Doe");
-  user2: Users = new Users("sam@mail.com", "123", "Samantha", "Right");
-  user3: Users = new Users("julia@mail.com", "123", "Julia", "Richards");
+  email: String;
+  password: String;
 
+  constructor(
+    private http: HttpClient ) { }
 
-  constructor() {
-    this.users = [
-      this.user1,
-      this.user2,
-      this.user3
-    ];
-  }
-
-  public logIn(Authuser: Users) {
-
-    return new Promise((resolve, reject) => {
-
-      // Please note that this will call the API noce we have created it - But for now:
-      const user: any = this.users.filter(dbUser => {
+  login() {
+      return new Promise((resolve, reject) => {
+        this.http.post('http://localhost:5000/api/auth/login', [this.email, this.password]).subscribe((response) => {
+          resolve(response);
+        });
+      });
+      /* const user: any = this.users.filter(dbUser => {
         return dbUser.email === Authuser.email;
       });
 
-      // This logic will be on the backend we will just return success or erroe HTTP response - But for now:
       if (user.length) {
         if (Authuser.password === user[0].password) {
           this.setLoggedInUser(user[0]);
@@ -42,8 +34,7 @@ export class UserService {
         }
       } else {
         reject(new Error("User doesn't exist"));
-      }
-    });
+      } */
   }
 
   setLoggedInUser(user: Users) {
@@ -52,5 +43,33 @@ export class UserService {
 
   getLoggedInUser(): Users {
     return this.loggedInUser;
+  }
+
+  getUsers() {
+    return new Promise((resolve, reject) => {
+      this.http.get('http://localhost:5000/api/users/').subscribe((response) => {
+        resolve(response);
+      });
+    });
+  }
+
+  createUser(newUser: Users) {
+    if(this.validateEmail(newUser.email)) {
+      return new Promise((resolve, reject) => {
+        this.http.post('http://localhost:5000/api/users/', JSON.stringify(newUser)).subscribe((response) => {
+          resolve(response);
+        });
+      });
+    } else {
+      alert("Email already in use!");
+    }
+  }
+
+  validateEmail(email: String) {
+    return new Promise((resolve, reject) => {
+      this.http.post('http://localhost:5000/api/auth/validate', JSON.stringify(email)).subscribe((response) => {
+        resolve(response);
+      });
+    });
   }
 }

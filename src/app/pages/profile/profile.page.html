@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Hello, {{this.profile.name}} {{this.profile.lastName}}</h2>
+
+  <ion-avatar>
+    <img src="{{this.profile.avatarUrl}}">
+  </ion-avatar>
+
+  <h4>About</h4>
+  <p>
+    {{this.profile.location}}
+  </p>
+</ion-content>
