@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
-import { UserService } from "../../services/users.service";
-import { Users } from "../../models/user";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -18,11 +17,25 @@ export class RegisterPage {
 
   constructor( 
     private navCtrl: NavController,
+    private alertCtrl: AlertController,
     private userService: UserService ) { }
 
   register() {
-    let newUser = new Users(this.firstName, this.lastName, this.cellPhone, this.email, this.password);
-    this.userService.createUser(newUser);
-    this.navCtrl.navigateForward('tabs');
+    this.userService.createUser(this.firstName, this.lastName, this.cellPhone, this.email, this.password).then(user => {
+      this.navCtrl.navigateForward('tabs', user);
+    }).catch(err => {
+      this.presentAlert(err);
+    });
+  }
+
+  async presentAlert(err) {
+    const alert = await this.alertCtrl.create({
+      header: 'Alert',
+      subHeader: 'Failed to register',
+      message: err,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

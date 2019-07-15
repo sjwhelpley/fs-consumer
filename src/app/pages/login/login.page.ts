@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 
-import { UserService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,26 +13,18 @@ export class LoginPage {
   email: string;
   password: string;
 
-  public users: any;
-
   constructor(
     private alertCtrl: AlertController,
     private navCtrl: NavController,
-    private usersService: UserService
+    private userService: UserService
   ) { }
 
   login() {
-    const authUser = null;
-    this.usersService.logIn(authUser).then(user => {
+    this.userService.login(this.email, this.password).then(user => {
       this.navCtrl.navigateForward('tabs', user);
     }).catch(err => {
       this.presentAlert(err);
     });
-    /* 
-      this.http.post('http://localhost:5000/api/auth/login', this).subscribe((response) => {
-      console.log(response);
-    });
-    */
   }
 
   register() {

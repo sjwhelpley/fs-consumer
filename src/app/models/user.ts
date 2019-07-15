@@ -1,4 +1,4 @@
-export class Users {
+export class User {
     firstName: String;
     lastName: String;
     cellPhone: String;

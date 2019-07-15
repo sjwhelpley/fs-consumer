@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ListingsService } from '../../services/listings.service';
+import { ListingService } from '../../services/listing.service';
 
 @Component({
   selector: 'app-explore',
@@ -10,7 +10,7 @@ import { ListingsService } from '../../services/listings.service';
 export class ExplorePage {
   public listings: any;
 
-  constructor (private listingsService: ListingsService ) {
-    this.listings = this.listingsService.getAll();
+  constructor (private listingService: ListingService ) {
+    this.listings = this.listingService.getAll();
   }
 }

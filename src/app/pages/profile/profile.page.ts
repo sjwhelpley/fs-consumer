@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { UserService } from '../../services/users.service';
-import { Users } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,10 +8,9 @@ import { Users } from '../../models/user';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
-  currentUser: Users;
+  currentUser;
 
-  constructor (
-    private usersService: UserService ) { 
-    this.currentUser = this.usersService.getLoggedInUser();
+  constructor (private userService: UserService ) { 
+    this.currentUser = this.userService.getLoggedinUser();
   }
 }
